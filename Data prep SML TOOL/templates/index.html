@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Data Pre-processing Tool For SML</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Titillium Web", sans-serif;
+      
+    }
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin: 0 auto;
+      padding: 20px;
+      max-width: 800px; /* Adjust as needed */
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: black;
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: bolder;
+    }
+    h3 {
+      color: black;
+      text-align: start;
+      margin-bottom: 30px;
+      font-weight: bolder;
+    }
+    .alert-danger {
+      margin-top: 20px;
+    }
+    .file-input {
+      display: inline-block;
+      width: calc(100% - 30px); /* Adjust as needed */
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .select-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .formspace{
+      width: 410px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      font-weight: bold;
+      box-shadow: -1px 2px 15px 0px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: -1px 2px 15px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: -1px 2px 15px 0px rgba(0, 0, 0, 0.75);
+    }
+    label{
+      font-size: 20px;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1 class="mb-4">Data Preprocessing Tool </h1>
+  <div class="row mt-3">
+    <div class="col-md-12 d-flex justify-content-center align-items-center mb-3">
+  <form method="POST" enctype="multipart/form-data" class="formspace">
+    <div class="form-group">
+      <label for="file">Upload CSV File:</label>
+      <input type="file" name="file" accept=".csv" class="file-input">
+    </div>
+    <div class="form-group">
+        <label for="target_column">Target Column:</label>
+        <input type="text" name="target_column" class="select-input" required><br>
+    </div>
+    <div class="form-group">
+        <label for="task_type">Task Type:</label>
+        <select name="task_type" required class="select-input">
+            <option value="classification">Classification</option>
+            <option value="regression">Regression</option>
+        </select><br>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-2 mb-2">
+    <button type="submit" class="btn btn-dark">Submit</button>
+  </div>
+  </form>
+</div>
+</div>
+
+  {% if first_5_rows %}
+    <div class="mt-4">
+      <h3>First 5 rows of the dataset:</h3>
+      {{ first_5_rows|safe }}
+    </div>
+    <div class="mt-4">
+        <h3>Last 5 rows of the dataset:</h3>
+        {{ last_5_rows|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>Shape of the dataset:</h3>
+        {{ dataset_shape|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>Column Types of the dataset:</h3>
+        {{ column_types|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>Missing values of the dataset:</h3>
+        {{ missing_values|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>Duplicate values of the dataset:</h3>
+        {{ duplicate_values|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>Numeric statistics</h3>
+        {{ numeric_stats|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>column_names</h3>
+        {{ column_names|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>visualizations</h3>
+        {{ visualizations|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>updated_numeric_stats</h3>
+        {{ updated_numeric_stats|safe }}
+      </div>
+      <div class="mt-4">
+        <h3>Results for various models:</h3>
+        {{ result_str|safe }}
+      </div>
+
+         
+  {% endif %}
+
+  {% if error_message %}
+    <div class="mt-4 alert alert-danger">
+      {{ error_message }}
+    </div>
+  {% endif %}
+</div>
+
+</body>
+</html>
